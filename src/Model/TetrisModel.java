@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.lang.Exception;
 
 public class TetrisModel {
 	
@@ -15,15 +16,15 @@ public class TetrisModel {
 	Shape fallingShape;
 	Shape nextShape;
 	
-	//List of shape types
-	private static ArrayList<String> shapeTypeList = new ArrayList<String>(Arrays.asList(
-						"I",
-						"O",
-						"T",
-						"S",
-						"Z",
-						"J",
-						"L")); 
+//	//List of shape types
+//	private static ArrayList<String> shapeTypeList = new ArrayList<String>(Arrays.asList(
+//						"I",
+//						"O",
+//						"T",
+//						"S",
+//						"Z",
+//						"J",
+//						"L")); 
 	
 	//Tetris Model constructor
 	public TetrisModel() {
@@ -33,20 +34,27 @@ public class TetrisModel {
 		printBoard();
 	}
 	
-	//prints the board
-	public void printBoard() {
-		System.out.println("    0 1 2 3 4 5 6 7 8 9");
+	//prints the board returns board as a string
+	public String printBoard() {
+		String str = "";
+		//System.out.println("    0 1 2 3 4 5 6 7 8 9");
+		str = str + "    0 1 2 3 4 5 6 7 8 9 \r\n";
 		for (int i = 0; i < boardHeight; i++) {
 			if (i >= 10) {
-				System.out.print(i + ": ");
+				//System.out.print(i + ": ");
+				str = str + i + ": ";
 			} else {
-				System.out.print(i + ":  ");
+				//System.out.print(i + ":  ");
+				str = str + i + ":  ";
 			}
 			for (int j = 0; j < boardWidth; j++) {
-				System.out.print(grid[i][j] + " ");
+				//System.out.print(grid[i][j] + " ");
+				str = str + grid[i][j] + " ";
 			}
-			System.out.println("");
+			//System.out.println("");
+			str = str + "\r\n";
 		}
+		return str;
 	}
 	
 	//initialize the empty Tetris board 
@@ -58,23 +66,29 @@ public class TetrisModel {
 		}
 	}
 	
-	public void setGridSpace(int i, int j, int value) {
+	//given a position and a value, sets the value of the given position
+	public void setGridSpace(Position pos, int value) {
+		int i = pos.getPosX();
+		int j = pos.getPosY();
 		this.grid[i][j] = value;
 	}
 	
-	//given a shape, generates and sets the shape to a random shape 
-	public void setRandomShape(Shape newShape) {
+	//returns a random shape
+	public Shape getRandomShape() {
 		String randomShapeType;
+		Shape newShape = new Shape();
 		
-		int numShapeTypes = TetrisModel.shapeTypeList.size();
+		int numShapeTypes = newShape.getShapeTypeListSize();
 		
 		//generate random number between 0 and the size of the shapeTypeList (number of shape types)
 		int randomShapeNum = 0;
 		randomShapeNum = (int) (Math.random()*((numShapeTypes - 1) + 1)) + 1;
 		
-		randomShapeType = TetrisModel.shapeTypeList.get(randomShapeNum);
+		randomShapeType = newShape.getShapeType(randomShapeNum);
 		
 		newShape.setShapeType(randomShapeType);
+		
+		return newShape;
 	}
 	
 	//sets the given shape as the falling shape
@@ -119,8 +133,9 @@ public class TetrisModel {
 		int PosX = Pos.getPosX();
 		int PosY = Pos.getPosY();
 		
-		if (PosX < 0 || PosX > 9 || PosY < 0 || PosY > 19) {
+		if (PosX < 0 || PosX > boardWidth - 1 || PosY < 0 || PosY > boardHeight - 1) {
 			validPos = false;
+			throw new IllegalArgumentException("Position is out of board boundaries");
 		} else if (this.grid[PosX][PosY] == 0) {
 			validPos = true;
 		}
@@ -149,4 +164,26 @@ public class TetrisModel {
 		}
 	}
 	
+	//given a shape and a position, places the shape
+	public void placeShape(Position pos, Shape shape) {
+		shape.setShapePosition(pos);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

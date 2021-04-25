@@ -1,5 +1,6 @@
 package Model;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Shape {
 	
@@ -13,6 +14,16 @@ public class Shape {
 	//Number of boxes that make up a shape
 	public static int numBoxes = 4;
 	public ArrayList<Position> shapePosList = new ArrayList<Position> ();
+	
+	//List of shape types
+	private ArrayList<String> shapeTypeList = new ArrayList<String>(Arrays.asList(
+						"I",
+						"O",
+						"T",
+						"S",
+						"Z",
+						"J",
+						"L")); 
 
 	//Shape constructor
 	public Shape() {
@@ -47,10 +58,15 @@ public class Shape {
 		this.color = col;
 	}
 	
-	//get color of shape
+	//get type of shape
 	public String getShapeType() {
 		return this.type;
 	}
+	
+	//given an integer, returns type of shape in that index
+		public String getShapeType(int num) {
+			return shapeTypeList.get(num);
+		}
 	
 	//given a color sets the color of the shape
 	public void setShapeType(String type) {
@@ -70,6 +86,11 @@ public class Shape {
 	//given a Position, sets shape position
 	public void setShapePosition(Position pos) {
 		this.shapePosition = pos;
+	}
+	
+	//returns the size of the shapeTypeList
+	public int getShapeTypeListSize() {
+		return this.shapeTypeList.size();
 	}
 	
 	//Given three positions, sets the second, third, and fourth position in the ShapePosList

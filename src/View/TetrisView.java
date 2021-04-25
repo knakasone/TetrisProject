@@ -1,12 +1,14 @@
 package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -19,17 +21,20 @@ public class TetrisView {
 	public TetrisView() {
 	
 	JFrame frame = new JFrame();
-	JPanel panel = new JPanel();
-	JButton button = new JButton("Tetris");
+	JPanel titlePanel = new JPanel();
+	JPanel selectPanel = new JPanel();
+	JLabel tetrisTitle = new JLabel("<html><h1>Tetris!</h1></html>");
+	JButton startGamebutton = new JButton("Start Game");
 	
 	//Set the size of the GUI
 	//panel.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
 	//panel.setLayout(new GridLayout(10, 10));
-	//panel.setBackground(Color.gray);
+	titlePanel.setBackground(Color.CYAN);
 	
 	//sets original size of the window
 	frame.setPreferredSize(new Dimension(500,500));
-	frame.add(panel, BorderLayout.CENTER);
+	frame.add(titlePanel, BorderLayout.NORTH);
+	frame.add(selectPanel, BorderLayout.CENTER);
 	
 	//cannot resize the window
 	frame.setResizable(false);
@@ -38,7 +43,7 @@ public class TetrisView {
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	//Title of the window
-	frame.setTitle("Tetris but with a better color palette");
+	frame.setTitle("Tetris but a little worse");
 	
 	//make the GUI the same size as the game
 	frame.pack();
@@ -49,9 +54,10 @@ public class TetrisView {
 	//make window visible to user
 	frame.setVisible(true);
 	
-	//adds button to view
-	panel.add(button);
-	
+	//adds elements to panel
+	titlePanel.add(tetrisTitle);
+	selectPanel.add(startGamebutton, Component.CENTER_ALIGNMENT);
+		
 	
 
 	}
