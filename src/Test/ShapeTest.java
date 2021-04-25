@@ -10,6 +10,7 @@ public class ShapeTest {
 	
 	Shape defaultShape = new Shape();
 
+	//tests the default shape contructor
 	@Test
 	public void defaultShape() {
 		
